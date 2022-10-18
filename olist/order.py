@@ -134,14 +134,16 @@ class Order:
         location_fil = location_fil.merge(geo, left_on=['customer_zip_code_prefix'], right_on=['geolocation_zip_code_prefix'])
         location_fil.drop(columns=['geolocation_zip_code_prefix', 'geolocation_city','geolocation_state'], inplace=True)
         location_fil.rename(columns={'geolocation_lat': 'customer_lat', 'geolocation_lng': 'customer_lng'}, inplace=True)
+        location_fil.drop_duplicates(inplace=True)
 
         #seller lat lng
         location_fil = location_fil.merge(geo, left_on=['seller_zip_code_prefix'], right_on=['geolocation_zip_code_prefix'])
         location_fil.drop(columns=['geolocation_zip_code_prefix', 'geolocation_city','geolocation_state'], inplace=True)
         location_fil.rename(columns={'geolocation_lat': 'seller_lat', 'geolocation_lng': 'seller_lng'}, inplace=True)
+        location_fil.drop_duplicates(inplace=True)
 
         #remove duplicates
-        location_fil.drop_duplicates(inplace=True)
+        location_fil.drop_duplicates(subset=['order_id'], inplace=True)
 
         #calculate distance
         location_fil['distance_seller_customer'] = location_fil.apply(lambda row: haversine_distance(row['customer_lng'], row['customer_lat'], row['seller_lng'], row['seller_lat']), axis=1)
@@ -163,5 +165,10 @@ class Order:
         """
         # Hint: make sure to re-use your instance methods defined above
         all_data = self.get_wait_time(is_delivered).merge(self.get_review_score(), on='order_id').merge(self.get_number_products(), on='order_id').merge(self.get_number_sellers(), on='order_id').merge(self.get_price_and_freight(), on='order_id')
+
+        if with_distance_seller_customer == True:
+            all_data = all_data.merge(self.get_distance_seller_customer(), on='order_id')
+
         all_data.dropna(inplace=True)
+
         return all_data
