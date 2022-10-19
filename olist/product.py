@@ -1,4 +1,3 @@
-
 import pandas as pd
 import numpy as np
 from olist.data import Olist
@@ -141,5 +140,12 @@ class Product:
         - `product_weight_g`: mean or median weight per category
         - ...
         '''
-        pass  # YOUR CODE HERE
+        products = self.get_training_data()
 
+        q = products.groupby('category').agg({'quantity':'sum'})
+        rest = products.groupby('category').agg(agg)
+        rest.drop(columns=['quantity'], inplace=True)
+        cat = q.merge(rest, left_index=True, right_index=True)
+        cat.reset_index(inplace=True)
+
+        return cat

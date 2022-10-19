@@ -1,4 +1,3 @@
-from antigravity import geohash
 import pandas as pd
 import numpy as np
 from olist.utils import haversine_distance
