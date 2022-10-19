@@ -142,7 +142,15 @@ class Seller:
         'seller_id', 'share_of_five_stars', 'share_of_one_stars', 'review_score'
         """
 
-        pass  # YOUR CODE HERE
+        seller_cleaned = self.data['order_items'].filter(['order_id', 'seller_id']).copy()
+        order_reviews = self.order.get_review_score()
+
+        seller_reviews = order_reviews.merge(seller_cleaned, on='order_id')
+        seller_reviews = seller_reviews.groupby('seller_id')\
+            .agg({'dim_is_five_star': lambda s: s.sum()/ s.count(), 'dim_is_one_star': lambda s: s.sum()/ s.count(), 'review_score': 'mean'})\
+            .rename(columns={'dim_is_five_star': 'share_of_five_stars', 'dim_is_one_star':'share_of_one_stars'})
+
+        return seller_reviews
 
     def get_training_data(self):
         """
