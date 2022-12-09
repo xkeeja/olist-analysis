@@ -1,6 +1,6 @@
-## Objectives of the module
+## Objective
 
-We will analyze a dataset provided by an e-commerce marketplace called [Olist](https://www.olist.com) to answer the CEO's question:
+Analyze a dataset provided by an e-commerce marketplace called [Olist](https://www.olist.com) to answer the CEO's question:
 
 > How can we increase customer satisfaction (so as to increase profit margin) while maintaining a healthy order volume?
 
@@ -42,11 +42,11 @@ Directions on how to download the dataset available in the data folder.
 
 ## Problem
 
->❓ How should Olist improve it's profit margin, given that it has:
-> - some revenues per sellers per months
-> - some revenues per orders
-> - some reputation costs (estimated) per bad reviews
-> - some operational costs of IT system that grows with number of orders, but not linearly (scale effects)
+❓ How should Olist improve it's profit margin, given that it has:
+ - some revenues per sellers per months
+ - some revenues per orders
+ - some reputation costs (estimated) per bad reviews
+ - some operational costs of IT system that grows with number of orders, but not linearly (scale effects)
 
 ## Unit Economics (detailed)
 
