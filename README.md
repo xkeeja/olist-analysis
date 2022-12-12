@@ -74,4 +74,4 @@ The IT department also told you that since the birth of the marketplace, cumulat
 ## Report
 
 Report organized in `ceo_request.ipynb` and exported as `ceo_request.slides.html`.
-Slides are best viewed by opening in a separate browser tab.
+Slides can be viewed at https://xkeeja.github.io/olist-analysis/.
